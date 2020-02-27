@@ -43,3 +43,6 @@ alias egrep='egrep --color=auto'
 # tmux aliases
 alias tmls='tmux list-sessions'
 alias tmas='tmux attach-session -t'
+
+#pip
+alias pip='pip3'
