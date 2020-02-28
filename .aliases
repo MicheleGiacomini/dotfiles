@@ -47,3 +47,6 @@ alias tmas='tmux attach-session -t'
 #pip
 alias pip='pip3'
 alias pip-update='pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U'
+
+#always use neovim
+alias vim='nvim'
