@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+alias ls="exa"
+alias l="exa -l"
+alias tree="exa --tree"
+alias ll="exa -lha"
+
+alias cat="bat"

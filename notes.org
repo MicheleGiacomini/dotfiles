@@ -1,0 +1,38 @@
+#+title:Notes
+
+
+* Stuff to add to setup.sh
+- [-] Symlinks to all config files
+  - [ ] nvim
+  - [X] emacs
+  - [ ] kitty
+  - [X] tmux
+  - [X] zsh
+  - [X] xmonad
+
+* Stuff missing
+
+** DONE xmonad install
+1. clone xmonad and xmonad contrib
+2. create cabal file
+3. cabal update
+4. cabal install libs
+5. cabal install
+6. add .cabal/bin to path
+7. done
+
+** DONE xmonad and KDE
+1. folder kde-someting/something
+2. file KDEsmthg.sh
+3. set path to xmonad inside
+
+
+** TODO Kitty themes
+
+* Other stuff to do
+
+** TODO Fix missing files/folders from dropbox
+
+** TODO Install and configure megasync
+
+** TODO Use swap partition to eneble hibernation
