@@ -7,7 +7,32 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Michele Giacomini"
-      user-mail-address "michele.giacomini91@gmail.com")
+      user-mail-address "michele@quasarud.it")
+
+;; Better? defaults from https://tecosaur.github.io/emacs-config/config.html#rudimentary-configuration
+(setq-default
+ delete-by-moving-to-trash t ; use system trash to delete files
+ x-stretch-cursor t          ; stretch block cursor to width of glyph under it
+ )
+
+(setq undo-limit 80000000    ; undo limit is 80Mb
+      evil-want-fine-undo t  ; do not aggragate changes in insert mode
+      auto-save-default t    ; autosave!
+      scroll-margin 2)       ; margin at top and bottom when scrolling
+
+;; Save settings from the customisation interface in a dedicated file
+;; To access customisation interface `M-X customize`''
+(setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; Split buffer to right and below, then ask which buffer to load in new split
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
+
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -32,11 +57,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
-(setq doom-dracula-colorful-headers t)
-(custom-set-faces!
-  '(doom-modeline-buffer-modified :foreground "orange"))
-
+(setq doom-theme 'doom-vibrant)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -44,7 +65,41 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "C:\\Users\\Michele Giacomini\\Documents\\notes\\org")
+(setq org-roam-directory  "C:\\Users\\Michele Giacomini\\Documents\\notes\\org\\roam")
+(setq org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("m" "meeting" plain
+      "* %^{Title}\n* Presenti\n-%?\n* Note\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
+      :unnarrowed t)
+
+     ))
+
+(setq org-roam-mode-sections
+      (list #'org-roam-backlinks-section
+            #'org-roam-reflinks-section
+            #'org-roam-unlinked-references-section
+            ))
+
+;; org-roam-ui
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -79,55 +134,53 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(after! org-roam
-        (defvar +org-roam-auto-backlinks-buffer t)
-        )
+(setq deft-directory "C:\\Users\\Michele Giacomini\\Documents\\notes")
 
-;; config
-(setq-default
- delete-by-moving-to-trash t                    ; Delete files to trash
- window-combination-resize t                    ; take new window space from all other windows (not just current)
- x-stretch-cursor t)                            ; Stretch cursor to the glyph width
+;;general config
+(setq evil-want-fine-undo t)
 
-(setq undo-limit 80000000                       ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                     ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                       ; Nobody likes to loose work, I certainly don't
-      scroll-margin 3                           ; It's nice to maintain a little margin
-      display-line-numbers-type 'relative)      ;relative line numbers
+;; DIRED
+(map! :leader
+      (:prefix ("d" . "dired")
+       :desc "Open dired" "d" #'dired
+       :desc "Dired jump to current" "j" #'dired-jump)
+      (:after dired
+       (:map dired-mode-map
+        :desc "Peep-dired image previews" "d p" #'peep-dired
+        :desc "Dired view file" "d v" #'dired-view-file)))
 
+(evil-define-key 'normal dired-mode-map
+  (kbd "M-RET") 'dired-display-file
+  (kbd "h") 'dired-up-directory
+  (kbd "l") 'dired-find-file ; use dired-find-file instead of dired-open.
+  (kbd "m") 'dired-mark
+  (kbd "t") 'dired-toggle-marks
+  (kbd "u") 'dired-unmark
+  (kbd "C") 'dired-do-copy
+  (kbd "D") 'dired-do-delete
+  (kbd "J") 'dired-goto-file
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
+  (kbd "P") 'dired-do-print
+  (kbd "R") 'dired-do-rename
+  (kbd "T") 'dired-do-touch
+  (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "Z") 'dired-do-compress
+  (kbd "+") 'dired-create-directory
+  (kbd "-") 'dired-do-kill-lines
+  (kbd "% l") 'dired-downcase
+  (kbd "% m") 'dired-mark-files-regexp
+  (kbd "% u") 'dired-upcase
+  (kbd "* %") 'dired-mark-files-regexp
+  (kbd "* .") 'dired-mark-extension
+  (kbd "* /") 'dired-mark-directories
+  (kbd "; d") 'epa-dired-do-decrypt
+  (kbd "; e") 'epa-dired-do-encrypt)
+;; Get file icons in dired
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
-(display-time-mode 1)                           ; Enable time in the mode-line
+(evil-define-key 'normal peep-dired-mode-map
+  (kbd "j") 'peep-dired-next-file
+  (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 
-(unless (string-match-p "^Power N/A" (battery)) ; On laptops...
-  (display-battery-mode 1))                     ; it's nice to know how much power you have
-
-;; Put stuff defined throug `M-X customize' in a dedicated file
-(setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-;; When splitting move right/down and ask wich buffer to open
-(setq evil-vsplit-window-right t
-      evil-split-window-below t)
-
-(defadvice! prompt-for-buffer (&rest _)
-  :after '(evil-window-split evil-window-vsplit)
-  (consult-buffer))
-
-
-;; evil-mode configs
-(after! evil
-  (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
-        evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
-        evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
-
-;;(package! evil-escape :disable t) ; disable evil escape mode (what even is it?!)
-
-;;citar config
-(setq! citar-bibliography '("~/Dropbox/uni/Bibliografia_Generale.bib"))
-(after! citar
-  ((setq citar-symbols
-      `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-        (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-        (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-(setq citar-symbol-separator "  ")))
