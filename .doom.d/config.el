@@ -73,7 +73,8 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "C:\\Users\\Michele Giacomini\\Documents\\notes\\org")
+(setq org-roam-directory  "C:\\Users\\Michele Giacomini\\Documents\\notes\\org\\roam")
 (setq org-roam-capture-templates
    '(("d" "default" plain
       "%?"
