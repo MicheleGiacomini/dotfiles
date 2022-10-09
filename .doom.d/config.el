@@ -65,25 +65,26 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-gruvbox)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq org-roam-directory "~/org/")
+(setq deft-directory "~/org")
 (setq org-roam-capture-templates
    '(("d" "default" plain
       "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "${title}\n")
       :unnarrowed t)
      ("m" "meeting" plain
       "* %^{Title}\n* Presenti\n-%?\n* Note\n"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
       :unnarrowed t)
-
      ))
 
 (setq org-roam-mode-sections
