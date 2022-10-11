@@ -77,13 +77,19 @@
 (setq org-roam-directory "~/OneDrive/org/roam/")
 (setq deft-directory "~/org")
 (setq org-roam-capture-templates
-   '(("d" "default" plain
+   '(
+     ("d" "default" plain
       "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "${title}\n")
+      :if-new (file+head "notes/${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
+     ("q" "quickNote" plain
+      "%?"
+      :if-new (file+head "notes/${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t
+      :immediate-finish t)
      ("m" "meeting" plain
       "* %^{Title}\n* Presenti\n-%?\n* Note\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
+      :if-new (file+head "meetings/%<%Y%m%d%H%M>-${slug}.org" "#+title: ${title}\n#+date: %U")
       :unnarrowed t)
      ))
 
