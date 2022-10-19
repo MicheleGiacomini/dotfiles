@@ -33,17 +33,18 @@
             #'org-roam-unlinked-references-section
             ))
 
-(cl-defmethod org-roam-node-type ((node org-roam-node))
-  "Return the TYPE of NODE."
-  (condition-case nil
-      (file-name-nondirectory
-       (directory-file-name
-        (file-name-directory
-         (file-relative-name (org-roam-node-file node) org-roam-directory))))
-    (error "")))
+(after! org-roam ;;need to evaluate after org-roam has loaded otherwise org-roam-node is not defined
+ (cl-defmethod org-roam-node-type ((node org-roam-node))
+   "Return the TYPE of NODE."
+   (condition-case nil
+       (file-name-nondirectory
+        (directory-file-name
+         (file-name-directory
+          (file-relative-name (org-roam-node-file node) org-roam-directory))))
+     (error "")))
 
-(setq org-roam-node-display-template
-      (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+ (setq org-roam-node-display-template
+       (concat "${type:15} ${title:*} " (propertize "${tags:10}" 'face 'org-tag))))
 
 ;; org-roam-ui config
 
