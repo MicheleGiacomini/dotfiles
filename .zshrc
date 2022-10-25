@@ -9,6 +9,8 @@ export PATH="$PATH:/home/michele/.cache/coursier/arc/https/github.com/AdoptOpenJ
 # >>> coursier install directory >>>
 export PATH="$PATH:/home/michele/.local/share/coursier/bin"
 # <<< coursier install directory <<<
+#
+export ORGDIR=$HOME/OneDrive/org
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

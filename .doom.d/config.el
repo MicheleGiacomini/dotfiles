@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Michele Giacomini"
-      user-mail-address "michele@quasarud.it")
+      user-mail-address "michele.giacomini91@gmail.com")
 
 ;; Better? defaults from https://tecosaur.github.io/emacs-config/config.html#rudimentary-configuration
 (setq-default
@@ -69,45 +69,45 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
+
+(load "~/.doom.d/org-conf")
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "C:\\Users\\Michele Giacomini\\OneDrive\\org")
-(setq org-roam-directory  "C:\\Users\\Michele Giacomini\\OneDrive\\org\\roam")
-(setq org-roam-capture-templates
-   '(("d" "default" plain
-      "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-     ("m" "meeting" plain
-      "* %^{Title}\n* Presenti\n-%?\n* Note\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
-      :unnarrowed t)
+;; (setq org-directory "C:\\Users\\Michele Giacomini\\OneDrive\\org")
+;; (setq org-roam-directory  "C:\\Users\\Michele Giacomini\\OneDrive\\org\\roam")
+;; (setq org-roam-capture-templates
+;;    '(("d" "default" plain
+;;       "%?"
+;;       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+;;       :unnarrowed t)
+;;      ("m" "meeting" plain
+;;       "* %^{Title}\n* Presenti\n-%?\n* Note\n"
+;;       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
+;;       :unnarrowed t)
 
-     ))
+;; (setq org-roam-mode-sections
+;;       (list #'org-roam-backlinks-section
+;;             #'org-roam-reflinks-section
+;;             #'org-roam-unlinked-references-section
+;;             ))
 
-(setq org-roam-mode-sections
-      (list #'org-roam-backlinks-section
-            #'org-roam-reflinks-section
-            #'org-roam-unlinked-references-section
-            ))
+;; ;; org-roam-ui
+;; (use-package! websocket
+;;     :after org-roam)
 
-;; org-roam-ui
-(use-package! websocket
-    :after org-roam)
-
-(use-package! org-roam-ui
-    :after org-roam ;; or :after org
+;; (use-package! org-roam-ui
+;;     :after org-roam ;; or :after org
 ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
 ;;         a hookable mode anymore, you're advised to pick something yourself
 ;;         if you don't care about startup time, use
 ;;  :hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+    ;; :config
+    ;; (setq org-roam-ui-sync-theme t
+    ;;       org-roam-ui-follow t
+    ;;       org-roam-ui-update-on-save t
+    ;;       org-roam-ui-open-on-start t))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -198,3 +198,15 @@
   (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 
+<<<<<<< HEAD
+=======
+
+;;citar config
+(setq! citar-bibliography '("~/Dropbox/uni/Bibliografia_Generale.bib"))
+(after! citar
+  ((setq citar-symbols
+      `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+        (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+        (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+(setq citar-symbol-separator "  ")))
+>>>>>>> personal
