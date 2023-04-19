@@ -170,3 +170,9 @@
 ;;         (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
 (setq citar-symbol-separator "  "))
 ;; )
+
+;;treemacs config
+(with-eval-after-load 'doom-themes
+  (doom-themes-treemacs-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
+)
