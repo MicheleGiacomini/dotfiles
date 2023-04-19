@@ -28,7 +28,7 @@
 
 
 ;; Put stuff defined throug `M-X customize' in a dedicated file
-(setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
+(setq-default custom-file (expand-file-name ".custom.el" doom-user-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
 
