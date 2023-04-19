@@ -72,51 +72,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(load "~/.doom.d/org-conf")
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "~/OneDrive/org/")
-;; (setq org-roam-directory "~/OneDrive/org/roam/")
-;; (setq deft-directory "~/org")
-;; (setq org-roam-capture-templates
-;;    '(
-;;      ("d" "default" plain
-;;       "%?"
-;;       :if-new (file+head "notes/${slug}.org" "#+title: ${title}\n")
-;;       :unnarrowed t)
-;;      ("q" "quickNote" plain
-;;       "%?"
-;;       :if-new (file+head "notes/${slug}.org" "#+title: ${title}\n")
-;;       :unnarrowed t
-;;       :immediate-finish t)
-;;      ("m" "meeting" plain
-;;       "* %^{Title}\n* Presenti\n-%?\n* Note\n"
-;;       :if-new (file+head "meetings/%<%Y%m%d%H%M>-${slug}.org" "#+title: ${title}\n#+date: %U")
-;;       :unnarrowed t)
-;;      ))
-
-;; (setq org-roam-mode-sections
-;;       (list #'org-roam-backlinks-section
-;;             #'org-roam-reflinks-section
-;;             #'org-roam-unlinked-references-section
-;;             ))
-
-;; ;; org-roam-ui
-;; (use-package! websocket
-;;     :after org-roam)
-
-;; (use-package! org-roam-ui
-;;     :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    ;; :config
-    ;; (setq org-roam-ui-sync-theme t
-    ;;       org-roam-ui-follow t
-    ;;       org-roam-ui-update-on-save t
-    ;;       org-roam-ui-open-on-start t))
+(defvar org-conf-file (expand-file-name "org-conf.el" doom-user-dir))
+(load org-conf-file)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
