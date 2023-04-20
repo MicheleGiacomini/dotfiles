@@ -28,7 +28,7 @@
 
 
 ;; Put stuff defined throug `M-X customize' in a dedicated file
-(setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
+(setq-default custom-file (expand-file-name ".custom.el" doom-user-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
 
@@ -54,8 +54,9 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'light)
+     ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+     )
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -66,50 +67,14 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-horizon)
-(setq doom-themes-treemacs-theme "doom-colors") ;; Use colored icons in treemacs
+(setq doom-theme 'doom-palenight)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(load "~/.doom.d/org-conf")
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "C:\\Users\\Michele Giacomini\\OneDrive\\org")
-;; (setq org-roam-directory  "C:\\Users\\Michele Giacomini\\OneDrive\\org\\roam")
-;; (setq org-roam-capture-templates
-;;    '(("d" "default" plain
-;;       "%?"
-;;       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-;;       :unnarrowed t)
-;;      ("m" "meeting" plain
-;;       "* %^{Title}\n* Presenti\n-%?\n* Note\n"
-;;       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U")
-;;       :unnarrowed t)
-
-;; (setq org-roam-mode-sections
-;;       (list #'org-roam-backlinks-section
-;;             #'org-roam-reflinks-section
-;;             #'org-roam-unlinked-references-section
-;;             ))
-
-;; ;; org-roam-ui
-;; (use-package! websocket
-;;     :after org-roam)
-
-;; (use-package! org-roam-ui
-;;     :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
-    ;; :config
-    ;; (setq org-roam-ui-sync-theme t
-    ;;       org-roam-ui-follow t
-    ;;       org-roam-ui-update-on-save t
-    ;;       org-roam-ui-open-on-start t))
+(defvar org-conf-file (expand-file-name "org-conf.el" doom-user-dir))
+(load org-conf-file)
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -203,3 +168,18 @@
   (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 
+;;citar config
+(setq! citar-bibliography '("~/Dropbox/uni/Bibliografia_Generale.bib"))
+(after! citar
+;;   ((setq citar-symbols
+;;       `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+;;         (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+;;         (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+(setq citar-symbol-separator "  "))
+;; )
+
+;;treemacs config
+(with-eval-after-load 'doom-themes
+  (doom-themes-treemacs-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
+)
