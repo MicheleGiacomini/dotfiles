@@ -61,11 +61,13 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-font (font-spec :family "JetBrains Mono" :size 11))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-horizon)
+(setq doom-themes-treemacs-theme "doom-colors") ;; Use colored icons in treemacs
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -142,7 +144,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq deft-directory "C:\\Users\\Michele Giacomini\\Documents\\notes")
+(setq deft-directory "C:\\Users\\Michele Giacomini\\OneDrive\\org")
 
 ;; evil-mode configs
 (after! evil
@@ -157,7 +159,10 @@
 (map! :leader
       (:prefix ("d" . "dired")
        :desc "Open dired" "d" #'dired
-       :desc "Dired jump to current" "j" #'dired-jump)
+       :desc "Dired jump to current" "j" #'dired-jump
+       :desc "New directory" "n" #'dired-create-directory
+       :desc "Empty file" "f" #'dired-create
+       )
       (:after dired
        (:map dired-mode-map
         :desc "Peep-dired image previews" "d p" #'peep-dired
@@ -198,15 +203,3 @@
   (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 
-<<<<<<< HEAD
-=======
-
-;;citar config
-(setq! citar-bibliography '("~/Dropbox/uni/Bibliografia_Generale.bib"))
-(after! citar
-  ((setq citar-symbols
-      `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-        (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-        (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-(setq citar-symbol-separator "  ")))
->>>>>>> personal
