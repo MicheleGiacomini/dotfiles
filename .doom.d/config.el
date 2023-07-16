@@ -176,3 +176,16 @@
   (doom-themes-treemacs-config)
   (setq doom-themes-treemacs-theme "doom-colors")
 )
+(obsidian-specify-path "/home/michele/obsidian")
+
+(map! :after obsidian
+  :map obsidian-mode-map
+  :leader (
+        :desc "" "m m" #'obsidian-hydra/body
+        ;; :desc "insert wikilink" "m l" #'obsidian-insert-wikilink
+        ;; :desc "goto file" "m o" #'obsidian-backlink-jump
+        ;; :desc "jump" "m j" #'obsidian-jump
+        ;; :desc "m c" #'obsidian-capture
+  ))
+
+(global-obsidian-mode t)
