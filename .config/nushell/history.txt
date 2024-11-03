@@ -1,0 +1,71 @@
+cd ~/.config/nushell/
+ls
+nvim config.nu
+exit
+ls
+eza
+ll
+eza -l
+ls
+ls -l
+cd ~/.config/nushell/
+ls
+nvim env.nu
+nvim config.nu
+exti
+exit
+which starship
+starship --version
+pacman -Ss starship
+ls /usr/local/bin
+rm -rf /usr/local/bin/starship
+sudo rm -rf /usr/local/bin/starship
+sudo pacman -S starship
+exit
+cd ~/.config/nushell/
+nvim config.nu
+which carapace
+nvim env.nu
+nvim config.nu
+exit
+cd ~/.config/nushell/
+nvim config.nu
+ls
+open config.nu
+cd ~/projects/qce
+eza --tree --level=2 --icons --long --git
+echo $XDG_CONFIG_HOME
+cd .config/
+mkdir wezterm
+cd wezterm/
+nvim wezterm.lua
+wezterm show-keys
+wezterm show-keys | bat
+exit
+ls
+cd dotfiles/
+ls
+ls -a
+git status
+git diff
+git status
+git pull
+git commit -am "latest changes?"
+git status
+open README.md
+git checkout -b stow
+ls
+ls -l
+ls -a
+ls .config/
+rm .aliases .tmux.conf .zshrc notes.org xmonad.hs .zshrc
+ls
+ls -a
+rm -r .config/
+rm setup.sh
+ls -a
+rm README.md
+mkdir .config
+cp ../.config/lazygit/ .config/
+cp -r ../.config/lazygit/ .config/
+ls .config/
