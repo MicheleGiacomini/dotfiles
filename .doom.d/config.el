@@ -55,8 +55,8 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "JetBrains Mono" :size 12 :weight 'light)
-     ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-     )
+      ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+      )
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -114,6 +114,16 @@
         evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
 
 ;;(package! evil-escape :disable t) ; disable evil escape mode (what even is it?!)
+;;
+;;LSP
+(map! :leader
+      (:prefix ("c" . "code"))
+      (:after lsp-mode
+              (:map lsp-mode-map))
+      )
+(evil-define-key 'normal lsp-mode-map
+  (kbd "g h") 'lsp-ui-doc-glance
+  (kbd "g H") 'lsp-ui-doc-show-with-cursor)
 
 ;; DIRED
 (map! :leader
@@ -121,9 +131,9 @@
        :desc "Open dired" "d" #'dired
        :desc "Dired jump to current" "j" #'dired-jump)
       (:after dired
-       (:map dired-mode-map
-        :desc "Peep-dired image previews" "d p" #'peep-dired
-        :desc "Dired view file" "d v" #'dired-view-file)))
+              (:map dired-mode-map
+               :desc "Peep-dired image previews" "d p" #'peep-dired
+               :desc "Dired view file" "d v" #'dired-view-file)))
 
 (evil-define-key 'normal dired-mode-map
   (kbd "M-RET") 'dired-display-file
@@ -153,7 +163,7 @@
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
 ;; Get file icons in dired
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (evil-define-key 'normal peep-dired-mode-map
   (kbd "j") 'peep-dired-next-file
@@ -164,28 +174,40 @@
 ;;citar config
 (setq! citar-bibliography '("~/Dropbox/uni/Bibliografia_Generale.bib"))
 (after! citar
-;;   ((setq citar-symbols
-;;       `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-;;         (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-;;         (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-(setq citar-symbol-separator "  "))
+  ;;   ((setq citar-symbols
+  ;;       `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
+  ;;         (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
+  ;;         (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+  (setq citar-symbol-separator "  "))
 ;; )
 
 ;;treemacs config
 (with-eval-after-load 'doom-themes
   (doom-themes-treemacs-config)
   (setq doom-themes-treemacs-theme "doom-colors")
-)
+  )
+
+;;dart sdk path
+(with-eval-after-load 'dart-mode
+  (setq lsp-dart-sdk-dir "/home/michele/snap/flutter/common/flutter/bin/cache/dart-sdk")
+  (setq lsp-dart-flutter-sdk-dir "/home/michele/snap/flutter/common/flutter"))
+
+
+(use-package! nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :config
+  (setq nov-save-place-file (concat doom-cache-dir "nov-places")))
+
 (obsidian-specify-path "/home/michele/obsidian")
 
 (map! :after obsidian
-  :map obsidian-mode-map
-  :leader (
-        :desc "" "m m" #'obsidian-hydra/body
-        ;; :desc "insert wikilink" "m l" #'obsidian-insert-wikilink
-        ;; :desc "goto file" "m o" #'obsidian-backlink-jump
-        ;; :desc "jump" "m j" #'obsidian-jump
-        ;; :desc "m c" #'obsidian-capture
-  ))
+      :map obsidian-mode-map
+      :leader (
+               :desc "" "m m" #'obsidian-hydra/body
+               ;; :desc "insert wikilink" "m l" #'obsidian-insert-wikilink
+               ;; :desc "goto file" "m o" #'obsidian-backlink-jump
+               ;; :desc "jump" "m j" #'obsidian-jump
+               ;; :desc "m c" #'obsidian-capture
+               ))
 
 (global-obsidian-mode t)

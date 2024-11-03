@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/home/michele/.cache/scalacli/local-repo/bin/scala-cli:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=/home/michele/.bin:/home/michele/.cache/scalacli/local-repo/bin/scala-cli:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # >>> JVM installed by coursier >>>
 export JAVA_HOME="/home/michele/.cache/coursier/arc/https/github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u292b10.tar.gz/jdk8u292-b10"
@@ -9,7 +9,10 @@ export PATH="$PATH:/home/michele/.cache/coursier/arc/https/github.com/AdoptOpenJ
 # >>> coursier install directory >>>
 export PATH="$PATH:/home/michele/.local/share/coursier/bin"
 # <<< coursier install directory <<<
-#
+
+# dart pub global packages
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
 export ORGDIR=$HOME/OneDrive/org
 
 # Path to your oh-my-zsh installation.
@@ -81,7 +84,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git fzf-zsh-plugin)
+plugins=(vi-mode git fzf-zsh-plugin tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,3 +116,21 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
 #
 eval "$(starship init zsh)"
+
+# >>> scala-cli completions >>>
+fpath=("/home/michele/.local/share/scalacli/completions/zsh" $fpath)
+compinit
+# <<< scala-cli completions <<<
+
+# opam configuration
+[[ ! -r /home/michele/.opam/opam-init/init.zsh ]] || source /home/michele/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+source /home/michele/.config/broot/launcher/bash/br
+
+eval "$(zoxide init zsh --cmd cd)"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/michele/.dart-cli-completion/zsh-config.zsh ]] && . /home/michele/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

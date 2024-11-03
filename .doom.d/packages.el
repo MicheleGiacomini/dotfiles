@@ -50,4 +50,8 @@
 ;(unpin! t)
 (unpin! org-roam)
 (package! org-roam-ui)
+(package! org-ref)
+
+(package! nov)
+
 (package! obsidian)

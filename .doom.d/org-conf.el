@@ -4,6 +4,9 @@
 
 (setq org-directory "~/OneDrive/org")
 
+(with-eval-after-load 'org
+  (add-to-list 'org-latex-packages-alist '("" "tikz-cd" t)))
+
 ;; org-roam config
 
 (setq org-roam-directory (doom-path org-directory "roam"))

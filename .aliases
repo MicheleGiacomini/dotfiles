@@ -6,3 +6,5 @@ alias tree="exa --tree"
 alias ll="exa -lha"
 
 alias cat="bat"
+
+alias neovide="~/.bin/neovide.AppImage"
