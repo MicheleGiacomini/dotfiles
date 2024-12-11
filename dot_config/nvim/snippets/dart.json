@@ -1,0 +1,14 @@
+{
+	"intl message": {
+		"scope": "dart",
+		"prefix": "intlm",
+		"body": "String $1() => Intl.message($2, name:\"$1\");$0",
+		"description": "Intl message with name"
+	},
+  "missing implementation": {
+    "scope": "dart",
+		"prefix": "noimpl",
+		"body": "// TODO: implement\n throw UnimplementedError();",
+		"description": "empty function implementation"
+}
+}
