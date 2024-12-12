@@ -9,7 +9,7 @@ return {
     {
       "<leader>xE",
       "<cmd>Trouble errors toggle filter.buf=0<cr>",
-      desc = "Buffer Errors (Trouble)",
+      desc = "Buffer errors (Trouble)",
     },
   },
   opts = {

@@ -4,12 +4,9 @@ return {
   { "rebelot/kanagawa.nvim" },
   { "rose-pine/neovim" },
   { "folke/tokyonight.nvim" },
-  {
-    "scottmckendry/cyberdream.nvim",
-    opts = {
-      borderless_telescope = false,
-    },
-  },
+  { "scottmckendry/cyberdream.nvim", opts = {
+    borderless_telescope = false,
+  } },
   { "eldritch-theme/eldritch.nvim" },
   { "catppuccin/nvim" },
 

@@ -8,6 +8,7 @@ return {
     "stevearc/dressing.nvim", -- optional for vim.ui.select
   },
   opts = {
+    fvm = true,
     debugger = {
       enabled = true,
       run_via_dap = true,
@@ -46,7 +47,6 @@ return {
         -- require("dap.ext.vscode").load_launchjs()
       end,
     },
-    fvm = true,
     lsp = {
       color = { -- show the derived colours for dart variables
         enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
